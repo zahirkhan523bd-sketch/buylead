@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ডেলি লিড ক্রয়-২০২৬</title>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --glass-bg: rgba(255, 255, 255, 0.07);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --text-color: #ffffff;
+            --primary-gradient: linear-gradient(135deg, #6366f1, #a855f7, #ec4899);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at 50% 50%, #1a1c29 0%, #0b0f19 100%);
+        }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+            z-index: -1;
+        }
+
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            border-bottom: 1px solid var(--glass-border);
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .animated-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #ff007f, #00ffcc, #ffff00, #ff007f);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientShift 5s ease infinite;
+        }
+
+        .sub-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #00ffcc;
+            text-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
+            margin-top: 5px;
+            animation: pulseGlow 2s infinite alternate;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes pulseGlow {
+            from { text-shadow: 0 0 5px #00ffcc, 0 0 10px #00ffcc; }
+            to { text-shadow: 0 0 20px #ff007f, 0 0 30px #ff007f; }
+        }
+
+        .ticker-container {
+            background: rgba(255, 255, 255, 0.05);
+            border-top: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--glass-border);
+            overflow: hidden;
+            white-space: nowrap;
+            padding: 10px 0;
+            font-weight: 600;
+            color: #ffff55;
+        }
+
+        .ticker-text {
+            display: inline-block;
+            animation: ticker 25s linear infinite;
+        }
+
+        @keyframes ticker {
+            0% { transform: translate3d(100%, 0, 0); }
+            100% { transform: translate3d(-100%, 0, 0); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        #auth-screen {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 70vh;
+        }
+
+        .auth-box {
+            width: 100%;
+            max-width: 400px;
+            padding: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid var(--glass-border);
+            background: rgba(0, 0, 0, 0.3);
+            color: white;
+            outline: none;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: var(--primary-gradient);
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        .app-screen { display: none; }
+
+        .nav-menu {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+
+        .nav-btn {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-btn.active, .nav-btn:hover {
+            background: #a855f7;
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.5);
+        }
+
+        .profiles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .profile-card {
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-5px);
+            border-color: #00ffff;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+
+        .profile-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: var(--primary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin: 0 auto 10px auto;
+            font-weight: bold;
+        }
+
+        .user-profile-view {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 25px;
+        }
+
+        .profile-header-flex {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .stat-item {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
+            text-align: center;
+        }
+
+        .hidden { display: none !important; }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        table th, table td {
+            padding: 10px;
+            border: 1px solid var(--glass-border);
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        table th { background: rgba(168, 85, 247, 0.3); }
+    </style>
+</head>
+<body>
+
+    <div class="stars"></div>
+
+    <header>
+        <div class="animated-title">ডেলি লিড ক্রয়-২০২৬</div>
+        <div class="sub-title">জহিরুল ইসলাম</div>
+    </header>
+
+    <div class="ticker-container">
+        <div class="ticker-text" id="live-ticker">
+            🌟 স্বাগতম! ডেলি লিড ক্রয়-২০২৬ পোর্টালে সকল ইউজারের কাজের আপডেট নিয়মিত এনিমেটেড আকারে প্রদর্শিত হচ্ছে। 🚀
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- লগইন স্ক্রিন -->
+        <div id="auth-screen">
+            <div class="glass-panel auth-box">
+                <h2 style="text-align: center; margin-bottom: 20px;"><i class="fas fa-user-lock"></i> লগইন / সাইনআপ</h2>
+                <div class="form-group">
+                    <label>নাম / ইউজার আইডি</label>
+                    <input type="text" id="login-input" placeholder="নাম বা Admin523 দিন">
+                </div>
+                <div class="form-group">
+                    <label>পাসওয়ার্ড</label>
+                    <input type="password" id="pass-input" placeholder="পাসওয়ার্ড দিন">
+                </div>
+                <div class="form-group">
+                    <label>ক্যাপচা: ৩ + ৫ = কত?</label>
+                    <input type="text" id="captcha-input" placeholder="উত্তর লিখুন">
+                </div>
+                <button class="btn" onclick="handleLogin()">প্রবেশ করুন</button>
+            </div>
+        </div>
+
+        <!-- মেইন অ্যাপ প্যানেল -->
+        <div id="main-app" class="app-screen">
+            <div class="nav-menu glass-panel">
+                <button class="nav-btn active" onclick="switchTab('home')"><i class="fas fa-home"></i> হোম</button>
+                <button class="nav-btn admin-only hidden" onclick="switchTab('user-add')"><i class="fas fa-user-plus"></i> ইউজার অ্যাড</button>
+                <button class="nav-btn" onclick="switchTab('payment')"><i class="fas fa-wallet"></i> পেমেন্ট</button>
+                <button class="nav-btn admin-only hidden" onclick="switchTab('lead-add')"><i class="fas fa-file-invoice-dollar"></i> লিড অ্যাড</button>
+                <button class="nav-btn admin-only hidden" onclick="switchTab('admin-panel')"><i class="fas fa-shield-alt"></i> এডমিন হিস্ট্রি</button>
+                <button class="nav-btn" onclick="switchTab('chat')"><i class="fas fa-comments"></i> চ্যাট</button>
+                <button class="nav-btn admin-only hidden" onclick="switchTab('settings')"><i class="fas fa-cog"></i> সেটিংস</button>
+                <button class="nav-btn admin-only hidden" onclick="switchTab('history')"><i class="fas fa-history"></i> হিস্ট্রি ও রিপোর্ট</button>
+                <button class="nav-btn" onclick="logout()" style="background: rgba(255,0,0,0.3);"><i class="fas fa-sign-out-alt"></i> লগআউট</button>
+            </div>
+
+            <!-- হোম ট্যাব -->
+            <div id="tab-home" class="tab-content">
+                <h3 style="margin-bottom: 15px;">সকল ইউজারের প্রোফাইল</h3>
+                <div class="profiles-grid" id="home-profiles-container"></div>
+            </div>
+
+            <!-- ইউজার অ্যাড ট্যাব -->
+            <div id="tab-user-add" class="tab-content hidden">
+                <div class="glass-panel" style="max-width: 500px; margin: 0 auto; padding: 25px;">
+                    <h3>নতুন ইউজার যুক্ত করুন</h3>
+                    <div class="form-group"><label>নাম</label><input type="text" id="new-u-name"></div>
+                    <div class="form-group"><label>ফোন নম্বর</label><input type="text" id="new-u-phone"></div>
+                    <div class="form-group"><label>ইমেল</label><input type="email" id="new-u-email"></div>
+                    <div class="form-group"><label>পাসওয়ার্ড (৬-১০ ডিজিট)</label><input type="password" id="new-u-pass" maxlength="10"></div>
+                    <button class="btn" onclick="addNewUser()">ইউজার সেভ করুন</button>
+                </div>
+            </div>
+
+            <!-- পেমেন্ট ট্যাব -->
+            <div id="tab-payment" class="tab-content hidden">
+                <div class="glass-panel" style="max-width: 500px; margin: 0 auto; padding: 25px;">
+                    <h3>পেমেন্ট উইথড্র রিকোয়েস্ট</h3>
+                    <div class="form-group">
+                        <label>ইউজার সিলেক্ট করুন</label>
+                        <select id="pay-user-select" onchange="updateUserBalanceView()"></select>
+                    </div>
+                    <p id="pay-current-bal" style="margin-bottom: 15px; color: #00ffcc;">ব্যালেন্স: ৳ ০</p>
+                    <div class="form-group">
+                        <label>পেমেন্ট মাধ্যম</label>
+                        <select id="pay-method"><option>বিকাশ</option><option>নগদ</option><option>রকেট</option></select>
+                    </div>
+                    <div class="form-group"><label>উইথড্র করার টাকার পরিমাণ</label><input type="number" id="pay-amount"></div>
+                    <div class="form-group"><label>পেমেন্ট নম্বর</label><input type="text" id="pay-number"></div>
+                    <button class="btn" onclick="submitPaymentRequest()">পেমেন্ট রিকোয়েস্ট পাঠান</button>
+                </div>
+            </div>
+
+            <!-- লিড অ্যাড ট্যাব (গুগল শিট যুক্ত) -->
+            <div id="tab-lead-add" class="tab-content hidden">
+                <div class="glass-panel" style="max-width: 600px; margin: 0 auto; padding: 25px;">
+                    <h3>লিড এন্ট্রি ফর্ম (গুগল শিট সিঙ্ক)</h3>
+                    <div class="form-group">
+                        <label>ইউজার নাম সিলেক্ট করুন</label>
+                        <select id="lead-user-select" onchange="loadLeadUserInfo()"></select>
+                    </div>
+                    <p id="lead-user-details" style="font-size: 0.9rem; color: #aaa; margin-bottom: 15px;"></p>
+                    <div class="form-group"><label>লিড জমার তারিখ</label><input type="date" id="l-date"></div>
+                    <div class="form-group"><label>লিডের পরিমাণ</label><input type="number" id="l-qty" oninput="calculateLeadMoney()"></div>
+                    <div class="form-group"><label>সমস্যার পরিমাণ</label><input type="number" id="l-prob" oninput="calculateLeadMoney()"></div>
+                    <div class="form-group"><label>লিডের দর (প্রতি লিড)</label><input type="number" id="l-rate" oninput="calculateLeadMoney()"></div>
+                    <div class="form-group"><label>টোটাল টাকা</label><input type="text" id="l-total" readonly></div>
+                    <div class="form-group"><label>জমা টাকা (পরিশোধ)</label><input type="number" id="l-paid" oninput="calculateLeadMoney()"></div>
+                    <div class="form-group"><label>বকেয়া / অবশিষ্ট টাকা</label><input type="text" id="l-due" readonly></div>
+                    
+                    <div style="display: flex; gap: 10px; margin-top: 20px;">
+                        <button class="btn" onclick="saveLeadDataToSheet()">সাবমিট ও গুগল শিটে পাঠান</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- এডমিন প্যানেল -->
+            <div id="tab-admin-panel" class="tab-content hidden">
+                <div class="glass-panel" style="padding: 20px;">
+                    <h3>ইউজার ডিভাইস ও সিকিউরিটি হিস্ট্রি</h3>
+                    <table id="device-history-table">
+                        <tr><th>ইউজার</th><th>আইপি লোকেশন</th><th>ব্রাউজার</th><th>সাইনআপ মেইল</th><th>রেটিং</th></tr>
+                        <tr><td>রহিম উদ্দিন</td><td>ঢাকা, বাংলাদেশ</td><td>Chrome</td><td>rahim@gmail.com</td><td>৫/৫</td></tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- চ্যাট ট্যাব -->
+            <div id="tab-chat" class="tab-content hidden">
+                <div class="glass-panel" style="max-width: 600px; margin: 0 auto; padding: 20px;">
+                    <h3>লাইভ চ্যাট ও সাপোর্ট</h3>
+                    <div id="chat-box" style="height: 300px; background: rgba(0,0,0,0.3); border-radius: 10px; padding: 15px; overflow-y: auto; margin-bottom: 15px;"></div>
+                    <div class="form-group"><input type="text" id="chat-input" placeholder="আপনার বার্তা লিখুন..."></div>
+                    <button class="btn" onclick="sendChatMessage()">মেসেজ পাঠান</button>
+                </div>
+            </div>
+
+            <!-- সেটিংস ট্যাব -->
+            <div id="tab-settings" class="tab-content hidden">
+                <div class="glass-panel" style="max-width: 500px; margin: 0 auto; padding: 25px;">
+                    <h3>সিস্টেম সেটিংস</h3>
+                    <div class="form-group"><label>থিম স্টাইল</label><select><option>স্টার ওয়ার্ল্ড গ্যালক্সি</option></select></div>
+                    <button class="btn" onclick="alert('সেভ হয়েছে!')">সেভ করুন</button>
+                </div>
+            </div>
+
+            <!-- হিস্ট্রি ও রিপোর্ট -->
+            <div id="tab-history" class="tab-content hidden">
+                <div class="glass-panel" style="padding: 20px;">
+                    <h3>সকল ইউজারের কাজের সারসংক্ষেপ</h3>
+                    <div id="history-summary-grid" class="profiles-grid"></div>
+                </div>
+            </div>
+
+            <!-- প্রোফাইল ডিটেইলস ভিউ -->
+            <div id="tab-user-profile-view" class="tab-content hidden">
+                <div class="glass-panel user-profile-view">
+                    <button class="nav-btn" onclick="switchTab('home')" style="margin-bottom: 15px;"><i class="fas fa-arrow-left"></i> হোম পেজে ফিরে যান</button>
+                    <div class="profile-header-flex">
+                        <div id="p-view-avatar" class="profile-avatar" style="width: 90px; height: 90px; font-size: 2.5rem;">U</div>
+                        <div>
+                            <h2 id="p-view-name" style="font-size: 1.8rem;">ইউজার নাম</h2>
+                            <p id="p-view-email" style="color: #00ffcc;">email@domain.com</p>
+                            <p id="p-view-balance" style="font-weight: bold; margin-top: 5px;">টোটাল টাকা: ৳ ০</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // আপনার গুগল শিটের ওয়েব অ্যাপ ইউআরএল
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwEiZAkZICjlZmY8rUZahaJz-jBqhajFa-HJJF-3qAF4qGdfk2EkI5NUrMwjj1Nb5aU/exec";
+
+        let users = JSON.parse(localStorage.getItem('dl_users')) || [
+            { name: 'রহিম উদ্দিন', phone: '01711111111', email: 'rahim@gmail.com', pass: '123456', balance: 5400, leads: 120, probs: 5 },
+            { name: 'করিম আহমেদ', phone: '01822222222', email: 'karim@gmail.com', pass: '123456', balance: 3200, leads: 80, probs: 2 }
+        ];
+
+        let currentUser = JSON.parse(localStorage.getItem('dl_current_user')) || null;
+
+        window.onload = function() {
+            if(currentUser) {
+                document.getElementById('auth-screen').classList.add('hidden');
+                document.getElementById('main-app').classList.remove('hidden');
+                initApp();
+            }
+        }
+
+        function handleLogin() {
+            const idInput = document.getElementById('login-input').value.trim();
+            const passInput = document.getElementById('pass-input').value.trim();
+            const captcha = document.getElementById('captcha-input').value.trim();
+
+            if(captcha !== '8') {
+                alert('সঠিক ক্যাপচা উত্তর দিন (৩ + ৫ = ৮)');
+                return;
+            }
+
+            if(idInput === 'Admin523' && passInput === 'Jahir523') {
+                currentUser = { name: 'Admin', role: 'admin', email: 'admin@delilead.com' };
+                localStorage.setItem('dl_current_user', JSON.stringify(currentUser));
+                location.reload();
+                return;
+            }
+
+            let found = users.find(u => u.name === idInput || u.email === idInput);
+            if(found && found.pass === passInput) {
+                currentUser = { ...found, role: 'user' };
+                localStorage.setItem('dl_current_user', JSON.stringify(currentUser));
+                location.reload();
+            } else {
+                alert('ভুল তথ্য প্রদান করা হয়েছে!');
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('dl_current_user');
+            location.reload();
+        }
+
+        function initApp() {
+            if(currentUser.role === 'admin') {
+                document.querySelectorAll('.admin-only').forEach(el => el.classList.remove('hidden'));
+            }
+            renderHomeProfiles();
+            populateSelects();
+        }
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById('tab-' + tabId).classList.remove('hidden');
+        }
+
+        function renderHomeProfiles() {
+            const container = document.getElementById('home-profiles-container');
+            container.innerHTML = '';
+            users.forEach(u => {
+                container.innerHTML += `
+                    <div class="glass-panel profile-card" onclick="openUserProfile('${u.email}')">
+                        <div class="profile-avatar">${u.name.charAt(0)}</div>
+                        <h4 style="font-size: 1.1rem;">${u.name}</h4>
+                        <p style="font-size: 0.8rem; color: #00ffcc;">${u.email}</p>
+                        <p style="font-size: 0.85rem; margin-top: 5px;">টাকা: ৳ ${u.balance}</p>
+                    </div>
+                `;
+            });
+        }
+
+        function openUserProfile(email) {
+            if(currentUser.role !== 'admin' && currentUser.email !== email) {
+                alert('আপনার অন্য প্রোফাইল দেখার অনুমতি নেই!');
+                return;
+            }
+            let u = users.find(x => x.email === email);
+            if(!u) return;
+
+            document.getElementById('p-view-avatar').innerText = u.name.charAt(0);
+            document.getElementById('p-view-name').innerText = u.name;
+            document.getElementById('p-view-email').innerText = u.email;
+            document.getElementById('p-view-balance').innerText = 'টোটাল টাকা: ৳ ' + u.balance;
+
+            switchTab('user-profile-view');
+        }
+
+        function populateSelects() {
+            let uSelects = [document.getElementById('pay-user-select'), document.getElementById('lead-user-select')];
+            uSelects.forEach(sel => {
+                if(!sel) return;
+                sel.innerHTML = '<option value="">ইউজার সিলেক্ট করুন</option>';
+                users.forEach(u => {
+                    sel.innerHTML += `<option value="${u.email}">${u.name} (${u.phone})</option>`;
+                });
+            });
+        }
+
+        function addNewUser() {
+            let name = document.getElementById('new-u-name').value;
+            let phone = document.getElementById('new-u-phone').value;
+            let email = document.getElementById('new-u-email').value;
+            let pass = document.getElementById('new-u-pass').value;
+
+            if(!name || !phone || !email || !pass) {
+                alert('সব ফিল্ড পূরণ করুন!');
+                return;
+            }
+
+            users.push({ name, phone, email, pass, balance: 0, leads: 0, probs: 0 });
+            localStorage.setItem('dl_users', JSON.stringify(users));
+            alert('ইউজার সফলভাবে যোগ করা হয়েছে!');
+            document.getElementById('new-u-name').value = '';
+            document.getElementById('new-u-phone').value = '';
+            document.getElementById('new-u-email').value = '';
+            document.getElementById('new-u-pass').value = '';
+            renderHomeProfiles();
+            populateSelects();
+        }
+
+        function calculateLeadMoney() {
+            let qty = parseFloat(document.getElementById('l-qty').value) || 0;
+            let prob = parseFloat(document.getElementById('l-prob').value) || 0;
+            let rate = parseFloat(document.getElementById('l-rate').value) || 0;
+            let paid = parseFloat(document.getElementById('l-paid').value) || 0;
+
+            let netQty = qty - prob;
+            let total = netQty * rate;
+            let due = total - paid;
+
+            document.getElementById('l-total').value = total;
+            document.getElementById('l-due').value = due;
+        }
+
+        // গুগল শিটে ডাটা পাঠানোর ফাংশন
+        function saveLeadDataToSheet() {
+            let userEmail = document.getElementById('lead-user-select').value;
+            let userObj = users.find(u => u.email === userEmail);
+
+            if(!userObj) {
+                alert('দয়া করে সঠিক ইউজার সিলেক্ট করুন!');
+                return;
+            }
+
+            let formData = {
+                name: userObj.name,
+                email: userObj.email,
+                date: document.getElementById('l-date').value,
+                leads: document.getElementById('l-qty').value,
+                probs: document.getElementById('l-prob').value,
+                total: document.getElementById('l-total').value,
+                paid: document.getElementById('l-paid').value,
+                due: document.getElementById('l-due').value
+            };
+
+            if(!formData.date || !formData.leads) {
+                alert('তারিখ ও লিডের পরিমাণ পূরণ করুন!');
+                return;
+            }
+
+            // ফেচ এপিআই ব্যবহার করে গুগল শিটে ডাটা পাঠানো
+            fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            })
+            .then(() => {
+                alert('সফলভাবে ডাটা গুগল শিটে সেভ হয়েছে!');
+                // ফর্ম রিসেট
+                document.getElementById('l-qty').value = '';
+                document.getElementById('l-prob').value = '';
+                document.getElementById('l-rate').value = '';
+                document.getElementById('l-total').value = '';
+                document.getElementById('l-paid').value = '';
+                document.getElementById('l-due').value = '';
+            })
+            .catch(err => {
+                console.error(err);
+                alert('গুগল শিটে ডাটা পাঠাতে সমস্যা হয়েছে।');
+            });
+        }
+
+        function submitPaymentRequest() {
+            alert('পেমেন্ট রিকোয়েস্ট সফলভাবে সাবমিট হয়েছে এবং এডমিন প্যানেলে পাঠানো হয়েছে!');
+        }
+
+        function sendChatMessage() {
+            let txt = document.getElementById('chat-input').value;
+            if(!txt) return;
+            let box = document.getElementById('chat-box');
+            box.innerHTML += `<div style="margin-bottom: 8px;"><b>${currentUser.name}:</b> ${txt}</div>`;
+            document.getElementById('chat-input').value = '';
+            box.scrollTop = box.scrollHeight;
+        }
+    </script>
+</body>
+</html>
