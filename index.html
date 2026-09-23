@@ -9,8 +9,8 @@
     <style>
         :root {
             --bg-color: #0b0f19;
-            --glass-bg: rgba(255, 255, 255, 0.07);
-            --glass-border: rgba(255, 255, 255, 0.15);
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.2);
             --text-color: #ffffff;
             --primary-gradient: linear-gradient(135deg, #6366f1, #a855f7, #ec4899);
         }
@@ -26,8 +26,8 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             min-height: 100vh;
-            overflow-x: hidden;
             background-image: radial-gradient(circle at 50% 50%, #1a1c29 0%, #0b0f19 100%);
+            padding-bottom: 40px;
         }
 
         .stars {
@@ -54,7 +54,7 @@
             text-align: center;
             padding: 20px;
             border-bottom: 1px solid var(--glass-border);
-            background: rgba(0, 0, 0, 0.2);
+            background: rgba(0, 0, 0, 0.3);
         }
 
         .animated-title {
@@ -89,13 +89,13 @@
 
         .ticker-container {
             background: rgba(255, 255, 255, 0.05);
-            border-top: 1px solid var(--glass-border);
             border-bottom: 1px solid var(--glass-border);
             overflow: hidden;
             white-space: nowrap;
             padding: 10px 0;
             font-weight: 600;
             color: #ffff55;
+            margin-bottom: 20px;
         }
 
         .ticker-text {
@@ -110,15 +110,17 @@
 
         .container {
             max-width: 1200px;
-            margin: 20px auto;
+            margin: 0 auto;
             padding: 0 15px;
         }
 
+        /* লগইন স্ক্রিন ফিক্সড */
         #auth-screen {
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-top: 40px;
+            width: 100%;
+            margin-top: 20px;
         }
 
         .auth-box {
@@ -134,17 +136,19 @@
         .form-group label {
             display: block;
             margin-bottom: 5px;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
+            color: #ddd;
         }
 
         .form-group input, .form-group select {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             border-radius: 8px;
             border: 1px solid var(--glass-border);
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(0, 0, 0, 0.4);
             color: white;
             outline: none;
+            font-size: 1rem;
         }
 
         .btn {
@@ -157,6 +161,7 @@
             font-weight: 700;
             cursor: pointer;
             transition: 0.3s;
+            font-size: 1rem;
         }
 
         .btn:hover {
@@ -172,7 +177,7 @@
             gap: 10px;
             justify-content: center;
             margin-bottom: 20px;
-            padding: 10px;
+            padding: 12px;
         }
 
         .nav-btn {
@@ -239,21 +244,6 @@
             margin-bottom: 20px;
         }
 
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .stat-item {
-            background: rgba(0, 0, 0, 0.4);
-            padding: 15px;
-            border-radius: 12px;
-            border: 1px solid var(--glass-border);
-            text-align: center;
-        }
-
         .hidden { display: none !important; }
         
         table {
@@ -288,7 +278,7 @@
     </div>
 
     <div class="container">
-        <!-- ১. লগইন স্ক্রিন (ডিফল্টভাবে দৃশ্যমান থাকবে) -->
+        <!-- ১. লগইন স্ক্রিন -->
         <div id="auth-screen">
             <div class="glass-panel auth-box">
                 <h2 style="text-align: center; margin-bottom: 20px;"><i class="fas fa-user-lock"></i> লগইন / সাইনআপ</h2>
@@ -308,7 +298,7 @@
             </div>
         </div>
 
-        <!-- ২. মেইন অ্যাপ প্যানেল (লগইন না করা পর্যন্ত হাইড থাকবে) -->
+        <!-- ২. মেইন অ্যাপ প্যানেল -->
         <div id="main-app" class="app-screen">
             <div class="nav-menu glass-panel">
                 <button class="nav-btn active" onclick="switchTab('home')"><i class="fas fa-home"></i> হোম</button>
