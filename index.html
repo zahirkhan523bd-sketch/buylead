@@ -114,18 +114,18 @@
             padding: 0 15px;
         }
 
-        /* লগইন স্ক্রিন ফিক্সড */
+        /* লগইন স্ক্রিন ডিজাইন */
         #auth-screen {
             display: flex;
             justify-content: center;
             align-items: center;
             width: 100%;
-            margin-top: 20px;
+            margin-top: 30px;
         }
 
         .auth-box {
             width: 100%;
-            max-width: 400px;
+            max-width: 420px;
             padding: 30px;
         }
 
@@ -145,7 +145,7 @@
             padding: 12px;
             border-radius: 8px;
             border: 1px solid var(--glass-border);
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0, 0, 0, 0.5);
             color: white;
             outline: none;
             font-size: 1rem;
@@ -278,7 +278,7 @@
     </div>
 
     <div class="container">
-        <!-- ১. লগইন স্ক্রিন -->
+        <!-- লগইন / সাইনআপ স্ক্রিন -->
         <div id="auth-screen">
             <div class="glass-panel auth-box">
                 <h2 style="text-align: center; margin-bottom: 20px;"><i class="fas fa-user-lock"></i> লগইন / সাইনআপ</h2>
@@ -298,7 +298,7 @@
             </div>
         </div>
 
-        <!-- ২. মেইন অ্যাপ প্যানেল -->
+        <!-- মেইন অ্যাপ প্যানেল -->
         <div id="main-app" class="app-screen">
             <div class="nav-menu glass-panel">
                 <button class="nav-btn active" onclick="switchTab('home')"><i class="fas fa-home"></i> হোম</button>
@@ -336,9 +336,8 @@
                     <h3>পেমেন্ট উইথড্র রিকোয়েস্ট</h3>
                     <div class="form-group">
                         <label>ইউজার সিলেক্ট করুন</label>
-                        <select id="pay-user-select" onchange="updateUserBalanceView()"></select>
+                        <select id="pay-user-select"></select>
                     </div>
-                    <p id="pay-current-bal" style="margin-bottom: 15px; color: #00ffcc;">ব্যালেন্স: ৳ ০</p>
                     <div class="form-group">
                         <label>পেমেন্ট মাধ্যম</label>
                         <select id="pay-method"><option>বিকাশ</option><option>নগদ</option><option>রকেট</option></select>
@@ -355,9 +354,8 @@
                     <h3>লিড এন্ট্রি ফর্ম (গুগল শিট সিঙ্ক)</h3>
                     <div class="form-group">
                         <label>ইউজার নাম সিলেক্ট করুন</label>
-                        <select id="lead-user-select" onchange="loadLeadUserInfo()"></select>
+                        <select id="lead-user-select"></select>
                     </div>
-                    <p id="lead-user-details" style="font-size: 0.9rem; color: #aaa; margin-bottom: 15px;"></p>
                     <div class="form-group"><label>লিড জমার তারিখ</label><input type="date" id="l-date"></div>
                     <div class="form-group"><label>লিডের পরিমাণ</label><input type="number" id="l-qty" oninput="calculateLeadMoney()"></div>
                     <div class="form-group"><label>সমস্যার পরিমাণ</label><input type="number" id="l-prob" oninput="calculateLeadMoney()"></div>
@@ -438,16 +436,17 @@
 
         let currentUser = JSON.parse(localStorage.getItem('dl_current_user')) || null;
 
-        window.onload = function() {
-            if(currentUser && currentUser.name) {
-                document.getElementById('auth-screen').classList.add('hidden');
-                document.getElementById('main-app').classList.remove('hidden');
+        // পেজ লোড হওয়ার সাথে সাথে চেক করা
+        window.addEventListener('DOMContentLoaded', () => {
+            if (currentUser && currentUser.name) {
+                document.getElementById('auth-screen').style.display = 'none';
+                document.getElementById('main-app').style.display = 'block';
                 initApp();
             } else {
-                document.getElementById('auth-screen').classList.remove('hidden');
-                document.getElementById('main-app').classList.add('hidden');
+                document.getElementById('auth-screen').style.display = 'flex';
+                document.getElementById('main-app').style.display = 'none';
             }
-        }
+        });
 
         function handleLogin() {
             const idInput = document.getElementById('login-input').value.trim();
