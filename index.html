@@ -118,7 +118,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 70vh;
+            margin-top: 40px;
         }
 
         .auth-box {
@@ -288,7 +288,7 @@
     </div>
 
     <div class="container">
-        <!-- লগইন স্ক্রিন -->
+        <!-- ১. লগইন স্ক্রিন (ডিফল্টভাবে দৃশ্যমান থাকবে) -->
         <div id="auth-screen">
             <div class="glass-panel auth-box">
                 <h2 style="text-align: center; margin-bottom: 20px;"><i class="fas fa-user-lock"></i> লগইন / সাইনআপ</h2>
@@ -308,7 +308,7 @@
             </div>
         </div>
 
-        <!-- মেইন অ্যাপ প্যানেল -->
+        <!-- ২. মেইন অ্যাপ প্যানেল (লগইন না করা পর্যন্ত হাইড থাকবে) -->
         <div id="main-app" class="app-screen">
             <div class="nav-menu glass-panel">
                 <button class="nav-btn active" onclick="switchTab('home')"><i class="fas fa-home"></i> হোম</button>
@@ -359,7 +359,7 @@
                 </div>
             </div>
 
-            <!-- লিড অ্যাড ট্যাব (গুগল শিট যুক্ত) -->
+            <!-- লিড অ্যাড ট্যাব -->
             <div id="tab-lead-add" class="tab-content hidden">
                 <div class="glass-panel" style="max-width: 600px; margin: 0 auto; padding: 25px;">
                     <h3>লিড এন্ট্রি ফর্ম (গুগল শিট সিঙ্ক)</h3>
@@ -439,7 +439,6 @@
     </div>
 
     <script>
-        // আপনার গুগল শিটের ওয়েব অ্যাপ ইউআরএল
         const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwEiZAkZICjlZmY8rUZahaJz-jBqhajFa-HJJF-3qAF4qGdfk2EkI5NUrMwjj1Nb5aU/exec";
 
         let users = JSON.parse(localStorage.getItem('dl_users')) || [
@@ -450,10 +449,13 @@
         let currentUser = JSON.parse(localStorage.getItem('dl_current_user')) || null;
 
         window.onload = function() {
-            if(currentUser) {
+            if(currentUser && currentUser.name) {
                 document.getElementById('auth-screen').classList.add('hidden');
                 document.getElementById('main-app').classList.remove('hidden');
                 initApp();
+            } else {
+                document.getElementById('auth-screen').classList.remove('hidden');
+                document.getElementById('main-app').classList.add('hidden');
             }
         }
 
@@ -580,7 +582,6 @@
             document.getElementById('l-due').value = due;
         }
 
-        // গুগল শিটে ডাটা পাঠানোর ফাংশন
         function saveLeadDataToSheet() {
             let userEmail = document.getElementById('lead-user-select').value;
             let userObj = users.find(u => u.email === userEmail);
@@ -606,7 +607,6 @@
                 return;
             }
 
-            // ফেচ এপিআই ব্যবহার করে গুগল শিটে ডাটা পাঠানো
             fetch(GOOGLE_SCRIPT_URL, {
                 method: 'POST',
                 mode: 'no-cors',
@@ -615,7 +615,6 @@
             })
             .then(() => {
                 alert('সফলভাবে ডাটা গুগল শিটে সেভ হয়েছে!');
-                // ফর্ম রিসেট
                 document.getElementById('l-qty').value = '';
                 document.getElementById('l-prob').value = '';
                 document.getElementById('l-rate').value = '';
